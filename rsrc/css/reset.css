@@ -1,0 +1,96 @@
+/**
+ * reset
+ **/
+
+/* Box sizing rules */
+html, *, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1, h2, h3, h4, h5, h6,
+p,
+figure,
+blockquote,
+dl, dd {
+    margin: 0;
+    /* padding: 0; */
+}
+
+/* 
+Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed 
+ul[role="list"],
+ol[role="list"]
+*/
+ul, ol {
+    padding: 0;
+    list-style: none;
+}
+
+/* Set core root defaults */
+/* html {
+    scroll-behavior: smooth;
+} */
+
+html, html:focus-within {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-overflow-style: none;
+    /* scrollbar-width: none; */
+}
+
+html {
+    font-size:1.25em
+    text-rendering: optimizeLegibility;
+    -webkit-font-kerning: normal;
+    font-kerning: normal;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-size:1.25em
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
