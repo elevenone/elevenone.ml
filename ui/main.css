@@ -14,7 +14,7 @@ main {
 
 header {
     display: flex;
-    background-color: #3B2F63;
+    /* background-color: #3B2F63; */
 }
 
 ul {
@@ -27,27 +27,31 @@ a {
 }
 
 section {
-    padding: 10vmin;
+    /* padding: 10vmin; */
+}
+
+#________fx {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    /* background-color: aquamarine; */
 }
 
 canvas {
     border-radius: 50%;
     width: 300px;
     height: 300px;
-
-    
-
-    position: fixed;
-    z-index:12;
+    z-index:1;
 }
 
-canvasX {
-    width: 300px;
-    height: 300px;
-    position: fixed;
-    z-index:12;
-    border: 1px white solid;
-}
 
 
 

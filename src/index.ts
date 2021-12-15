@@ -42,7 +42,7 @@ const router = new Router({
                 if (e.detail.route == '404') {
                     console.log('__________404 SOFT')
                     reject('response ' + htmlfile + ' not found')
-                    // window.location.assign('a')
+                    window.location.assign('./error.html')
                     // return null
                 }
 
