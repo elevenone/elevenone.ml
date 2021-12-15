@@ -12,8 +12,9 @@
 import Events from "./events.js"
 
 const ROUTER_TYPES = {
-        hash: "hash", history: "history"
-    }, defer = x => { setTimeout(() => x(), 10)
+    hash: "hash", history: "history"
+}, defer = x => { 
+    setTimeout(() => x(), 10)
 }
 
 interface Router {
@@ -23,7 +24,7 @@ interface Router {
 class Router {
 
     constructor(options = {}) {
-        console.log('_42 / Router / constructor')
+        console.log('_42  / Router / constructor')
         this.events = new Events(this)
         this.options = { type: ROUTER_TYPES.hash, ...options }
     }
@@ -33,7 +34,7 @@ class Router {
      * @returns {Router} reference to itself.
      */
     listen(): Router {
-        console.log('_42 / Router / listen')
+        console.log('_42  / Router / listen')
         this.routeHash = Object.keys(this.options.routes)
 
         if (!this.routeHash.includes("/")) {
@@ -48,10 +49,11 @@ class Router {
         // if ( this.isHashRouter && this._findRoute(document.location.pathname) ) {
         if ( this.isHashRouter ) {
             window.addEventListener('hashchange', this._hashChanged.bind(this))
-            if (this._findRoute(document.location.pathname)) {
+            // if (this._findRoute(document.location.pathname)) {
                 defer(() => this._tryNav(document.location.hash.substring(1)))
-            }
-        } else {
+            // }
+        }
+        else {
             let href = document.location.origin
             if (this._findRoute(document.location.pathname)) {
                 href += document.location.pathname
@@ -64,25 +66,44 @@ class Router {
     }
 
     _hashChanged(): void {
-        console.log('_42 / Router / _hashChanged')
+        console.log('_42  / Router / _hashChanged')
         this._tryNav(document.location.hash.substring(1))
     }
 
     _triggerPopState(e): void {
-        console.log('_42 / Router / _triggerPopState')
+        console.log('_42  / Router / _triggerPopState')
         this._triggerRouteChange(e.state.path, e.target.location.href)
     }
 
     _triggerRouteChange(path, url): void {
-        console.log('_42 / Router / _triggerRouteChange')
+        console.log('_42  / Router / _triggerRouteChange')
         this.events.trigger("route", {
             route: this.options.routes[path], path: path, url: url
         })
     }
 
+    _findRouteX(url): string {
+        console.log('_42  / Router / _findRoute')
+        let checkURL = "/" + url.match(/([A-Za-z_0-9.]*)/gm, (match, token) => { return token })[1]
+        let isValidURL = this.routeHash.includes(checkURL) ? checkURL : null
+
+        // 404 error / defined in route
+        // _triggerRouteChange is faster
+        if (!this.routeHash.includes(checkURL)) {
+        // if (!this.routeHash.includes(checkURL) && this.routeHash.includes("/404")) {
+        // if (!this.routeHash.includes(checkURL)) {
+            console.log('_42  / Router / _findRoute / route is not defined route == ' + checkURL)
+            // defer(() => this._tryNav('404'))
+            this._triggerRouteChange('/404', url)
+        } 
+        // else {
+        //     this._triggerRouteChange('/', url)
+        // }
+        return isValidURL
+    }
+
     _findRoute(url): string {
         console.log('_42 / Router / _findRoute')
-        // console.log('_findRoute / url === ' + url)
 
         let test = "/" + url.match(/([A-Za-z_0-9.]*)/gm, (match, token) => { return token })[1]
 
@@ -90,20 +111,15 @@ class Router {
         let result = this.routeHash.includes(test) ? test : null
 
         if (!this.routeHash.includes(test)) {
+            console.log('_42  / Router / _findRoute / route is not defined route == ' + test)
             this._triggerRouteChange('/404', url)
-            // window.location.assign(test)
-            // window.location.href = test
-            // return test
-            ///// old
-            // old defer(() => this._tryNav('404'))
-            // old this.setRoute('404');
         } 
 
         return result
     }
 
     _tryNav(href): boolean {
-        console.log('_42 / Router / _tryNav')
+        console.log('_42  / Router / _tryNav')
         const url = this._createUrl(href)
 
         if (url.protocol.startsWith("http")) {
@@ -124,7 +140,7 @@ class Router {
 
 
     _createUrl(href): URL {
-        console.log('_42 / Router / _createUrl')
+        console.log('_42  / Router / _createUrl')
         if (this.isHashRouter && href.startsWith("#")) { // was "#"
             href = href.substring(1)
         }
@@ -135,7 +151,7 @@ class Router {
      * handle click in document
      */
     _onNavClick(e): void { 
-        console.log('_42 / Router / _onNavClick')
+        console.log('_42  / Router / _onNavClick')
         const href = e.target?.closest("[href]")?.href
         if (href && this._tryNav(href)) {
             e.preventDefault()
@@ -147,7 +163,7 @@ class Router {
      * @param {String} path 
      */
     setRoute(path) {
-        console.log('_42 / Router / setRoute')
+        console.log('_42  / Router / setRoute')
         if (!this._findRoute(path)) {
             throw TypeError("Invalid route")
         }
@@ -160,7 +176,7 @@ class Router {
     }
 
     get isHashRouter() {
-        console.log('_42 / Router / isHashRouter')
+        console.log('_42  / Router / isHashRouter')
         return this.options.type === ROUTER_TYPES.hash
     }
 }

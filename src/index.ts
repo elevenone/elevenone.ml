@@ -32,26 +32,35 @@ const router = new Router({
 }).listen().on("route", async e => {
 
     const element = document.querySelector("section")
-    const htmlfile = "/" + e.detail.route + ".html"
+    const file = "/" + e.detail.route + ".html"
 
     try {
         return new Promise<string>((resolve, reject) => {
-            fetch(htmlfile)
+            fetch( file )
             .then(function (response) {
 
-                if (e.detail.route == '404') {
-                    console.log('__________404 SOFT')
-                    reject('response ' + htmlfile + ' not found')
-                    window.location.assign('./error.html')
-                    // return null
-                }
+                // if (e.detail.route == '404') {
+                //     console.log('__________404 SOFT')
+                //     reject('response ' + htmlfile + ' not found')
+                //     window.location.assign('./error.html')
+                //     // return null
+                // }
+
+                //
+                // if (response.status == 404) {
+                //     console.log('__________404/PROMISE')
+                //     // window.location.assign('./404.html')
+                //     return response.text()
+                //     // reject( response )
+                // }
 
                 if (response.status == 200) {
                     console.log('__________200')
                     return response.text()
                 } else {
                     console.log('__________404')
-                    reject('response ' + htmlfile + ' not found')
+                    reject( response )
+                    // reject('response ' + htmlfile + ' not found')
                 }
             })
             .then(html => {
@@ -68,6 +77,7 @@ const router = new Router({
     }
 
     
+///////////
 
 /*
 
