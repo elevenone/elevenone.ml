@@ -4,12 +4,11 @@
  * 
  */
 
+/**
+ * Emitter
+ */
 interface Emitter {
     [obj: string]: any
-}
-
-interface Events {
-    [host: string]: any
 }
 
 class Emitter {
@@ -25,6 +24,13 @@ class Emitter {
         // console.log('_42 / Emitter / delegate')
         this.obj[method] = this.eventTarget[method].bind(this.eventTarget)
     }
+}
+
+/**
+ * Events
+ */
+interface Events {
+    [host: string]: any
 }
 
 class Events {

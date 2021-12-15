@@ -8,65 +8,37 @@
 
     <title>Vanilla Router</title>
     <link rel="stylesheet" href="./rsrc/css/reset.css" />
-    <style>
-        body {
-            padding: 10vmin;
-        }
-        header {
-            
-            display: flex;
-        }
-
-        ul {
-            display: flex;
-        }
-
-        a {
-            margin: 40px;
-        }
-
-        section {
-            padding: 10vmin;
-            background-color: antiquewhite;
-        }
-
-    </style>
+    <link rel="stylesheet" href="./ui/main.css" />
 </head>
-
 <body>
 
+      
 
-    <main>
+<main>
 
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/#products">Products</a></li>
-                    <li><a href="/#about">About</a></li>
-                    <li><a href="/#missing">missing</a></li>
-                    <li><a href="/#missing1">missing1</a></li>
-                    <li><a href="/#error">error</a></li>
-                    <li><a href="/#zorro">zorro</a></li>
-                    <li><a href="http://www.sandorzsolt.hu">sandorzsolt</a></li>
-                <!--
-                    <hr>
-                    <li><a href="/products">Products</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/missinghistory">missinghistory route</a></li>
-                -->
-                </ul>
-            </nav>
-        </header>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/#products">Products</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#missing">missing</a></li>
+                <li><a href="/#error">error</a></li>
+                <li><a href="/missinghistory">missinghistory route</a></li>
+            </ul>
+        </nav>
+    </header>
 
         <section>
 
         </section>
 
+        <canvas id="canvas" style="width: 300px; height: 300px;" width="360" height="360"></canvas>
+
     </main>
 
     <footer>
-        <link rel="html" href="/_partials/partial.html" />
+        <link rel="html" href="./_footer.html" />
     </footer>
 
     
@@ -74,15 +46,12 @@
 
 
 <script defer type="module" src="./rsrc/js/index.js"></script>
-
-
+<script src="./ui/simplex-noise.js"></script>
+<script src="./ui/noise.js"></script>
 
 <script>
 
 </script>
 
-
-
 </body>
-
 </html>

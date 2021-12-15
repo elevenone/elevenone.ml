@@ -2,6 +2,11 @@
  *
  * SPA Router - replacement for Framework Routers (history and hash).
  *
+ * original js router taken from: https://github.com/mvneerven/vanillarouter
+ *
+ * converted to typescript
+ * modified to be able to display 404 error pages when using hash routing
+ *
  */
 import Events from "./events.js";
 const ROUTER_TYPES = {
@@ -25,21 +30,22 @@ class Router {
         if (!this.routeHash.includes("/")) {
             throw TypeError("No home route found");
         }
-        // if (this.routeHash.includes(document.location.hash.substring(1))) {
-        //     defer(() => this._tryNav(document.location.hash.substring(1)))
-        // } else {
-        //     defer(() => this._tryNav('/'))
-        // }
+        if (!this._findRoute(document.location.pathname)) {
+            console.log('!!!!!!!!!!!!');
+            console.log('!!!!!!!!!!!!');
+            console.log('!!!!!!!!!!!!');
+            console.log('!!!!!!!!!!!!');
+            console.log('!!!!!!!!!!!!');
+            console.log('!!!!!!!!!!!!');
+            console.log('route not found');
+            return this;
+        }
+        // if ( this.isHashRouter && this._findRoute(document.location.pathname) ) {
         if (this.isHashRouter) {
             window.addEventListener('hashchange', this._hashChanged.bind(this));
             if (this._findRoute(document.location.pathname)) {
                 defer(() => this._tryNav(document.location.hash.substring(1)));
             }
-            // if (!this._findRoute(document.location.pathname)) {
-            //     defer(() => this._tryNav('404'))
-            // }
-            // defer(() => this._tryNav(document.location.hash.substring(1)))
-            // defer(() => this._tryNav(document.location.hash.substring(1)))
         }
         else {
             let href = document.location.origin;
@@ -65,18 +71,21 @@ class Router {
         this.events.trigger("route", {
             route: this.options.routes[path], path: path, url: url
         });
-        // console.log('END END END END _42 / Router / _triggerRouteChange')
     }
     _findRoute(url) {
         // console.log('_42 / Router / _findRoute')
         // console.log('_findRoute / url === ' + url)
         let test = "/" + url.match(/([A-Za-z_0-9.]*)/gm, (match, token) => { return token; })[1];
+        // if route is not defined as a constant then display an error page
         let result = this.routeHash.includes(test) ? test : null;
         if (!this.routeHash.includes(test)) {
             this._triggerRouteChange('/404', url);
-            // defer(() => this._tryNav('404'))
-            // this.setRoute('404');
-            return null;
+            // window.location.assign(test)
+            // window.location.href = test
+            // return test
+            ///// old
+            // old defer(() => this._tryNav('404'))
+            // old this.setRoute('404');
         }
         return result;
     }
