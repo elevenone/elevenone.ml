@@ -16,7 +16,7 @@ const ROUTER_TYPES = {
 };
 class Router {
     constructor(options = {}) {
-        // console.log('_42 / Router / constructor')
+        console.log('_42 / Router / constructor');
         this.events = new Events(this);
         this.options = { type: ROUTER_TYPES.hash, ...options };
     }
@@ -25,20 +25,14 @@ class Router {
      * @returns {Router} reference to itself.
      */
     listen() {
-        // console.log('_42 / Router / listen')
+        console.log('_42 / Router / listen');
         this.routeHash = Object.keys(this.options.routes);
         if (!this.routeHash.includes("/")) {
             throw TypeError("No home route found");
         }
+        // /index.html
         if (!this._findRoute(document.location.pathname)) {
-            console.log('!!!!!!!!!!!!');
-            console.log('!!!!!!!!!!!!');
-            console.log('!!!!!!!!!!!!');
-            console.log('!!!!!!!!!!!!');
-            console.log('!!!!!!!!!!!!');
-            console.log('!!!!!!!!!!!!');
-            console.log('route not found');
-            return this;
+            defer(() => this._tryNav('/'));
         }
         // if ( this.isHashRouter && this._findRoute(document.location.pathname) ) {
         if (this.isHashRouter) {
@@ -59,21 +53,21 @@ class Router {
         return this;
     }
     _hashChanged() {
-        // console.log('_42 / Router / _hashChanged')
+        console.log('_42 / Router / _hashChanged');
         this._tryNav(document.location.hash.substring(1));
     }
     _triggerPopState(e) {
-        // console.log('_42 / Router / _triggerPopState')
+        console.log('_42 / Router / _triggerPopState');
         this._triggerRouteChange(e.state.path, e.target.location.href);
     }
     _triggerRouteChange(path, url) {
-        // console.log('_42 / Router / _triggerRouteChange')
+        console.log('_42 / Router / _triggerRouteChange');
         this.events.trigger("route", {
             route: this.options.routes[path], path: path, url: url
         });
     }
     _findRoute(url) {
-        // console.log('_42 / Router / _findRoute')
+        console.log('_42 / Router / _findRoute');
         // console.log('_findRoute / url === ' + url)
         let test = "/" + url.match(/([A-Za-z_0-9.]*)/gm, (match, token) => { return token; })[1];
         // if route is not defined as a constant then display an error page
@@ -90,7 +84,7 @@ class Router {
         return result;
     }
     _tryNav(href) {
-        // console.log('_42 / Router / _tryNav')
+        console.log('_42 / Router / _tryNav');
         const url = this._createUrl(href);
         if (url.protocol.startsWith("http")) {
             const routePath = this._findRoute(url.pathname);
@@ -104,7 +98,7 @@ class Router {
         }
     }
     _createUrl(href) {
-        // console.log('_42 / Router / _createUrl')
+        console.log('_42 / Router / _createUrl');
         if (this.isHashRouter && href.startsWith("#")) { // was "#"
             href = href.substring(1);
         }
@@ -115,7 +109,7 @@ class Router {
      */
     _onNavClick(e) {
         var _a, _b;
-        // console.log('_42 / Router / _onNavClick')
+        console.log('_42 / Router / _onNavClick');
         const href = (_b = (_a = e.target) === null || _a === void 0 ? void 0 : _a.closest("[href]")) === null || _b === void 0 ? void 0 : _b.href;
         if (href && this._tryNav(href)) {
             e.preventDefault();
@@ -126,7 +120,7 @@ class Router {
      * @param {String} path
      */
     setRoute(path) {
-        // console.log('_42 / Router / setRoute')
+        console.log('_42 / Router / setRoute');
         if (!this._findRoute(path)) {
             throw TypeError("Invalid route");
         }
@@ -136,7 +130,7 @@ class Router {
         this._tryNav(href);
     }
     get isHashRouter() {
-        // console.log('_42 / Router / isHashRouter')
+        console.log('_42 / Router / isHashRouter');
         return this.options.type === ROUTER_TYPES.hash;
     }
 }
