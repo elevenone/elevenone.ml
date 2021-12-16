@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /rsrc/
+Disallow: /src/
+Disallow: /ui/
+sitemap:  https://elevenone.github.io//sitemap.xml
